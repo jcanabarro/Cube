@@ -13,3 +13,4 @@ Referências: https://github.com/nlohmann/json
   para validação dos testes será desenvolvido o algoritmo de resolução do cubo mágico 3x3x3.
   
 # Estrutura do código: #
+testando

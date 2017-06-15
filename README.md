@@ -1,9 +1,11 @@
 # Cube #
+
+## Projeto de resolução do cubo mágico através de algorítmos ##
+
 <p align="right">
 <img src="https://user-images.githubusercontent.com/12617957/27193536-8d982b80-51d5-11e7-8575-668f5500b60b.png">
 </p>
  	                                              
-## Projeto de resolução do cubo mágico através de algorítmos ##
 ## Autores: ##
     João Victor Canabarro e Renan Tashiro.
 # Específicação #

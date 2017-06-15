@@ -1,7 +1,7 @@
 # Cube
-## Projeto de resolução do cubo mágico através de algorítmos##
+## Projeto de resolução do cubo mágico através de algorítmos ##
 ## Autores: ##
-  João Victor Canabarro e Renan Tashiro.
+    João Victor Canabarro e Renan Tashiro.
 # Específicação #
 
 Lingugaem: *C++14*
@@ -16,14 +16,14 @@ Referências: https://github.com/nlohmann/json
 # Movimentos: #
 
 # Algumas específicações: #
-**		R**-> Girar a face direita do cubo.
-**		L**-> Girar a face esquerda do cubo.
-**		U**-> Girar a face superior do cubo.
-**		D**-> Girar a face inferior do cubo.
-**		F**-> Girar a face frontal do cubo.
-**		B**-> Girar a face posterior do cubo.
-**		MH**-> Girar a linha horizontal do centro do cubo. 
-**		MV**-> Girar a linha vertical do centro do cubo.
+        R-> Girar a face direita do cubo.
+		    L-> Girar a face esquerda do cubo.
+        U-> Girar a face superior do cubo.
+        D-> Girar a face inferior do cubo.
+        F-> Girar a face frontal do cubo.
+        B-> Girar a face posterior do cubo.
+        MH-> Girar a linha horizontal do centro do cubo. 
+        MV-> Girar a linha vertical do centro do cubo.
 
 ## ##
             R               R'               L               L'

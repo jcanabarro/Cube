@@ -17,9 +17,9 @@ Referências: https://github.com/nlohmann/json
 # Movimentos: #
 
 	Algumas específicações:
-		R -> Girar a face direita do cubo.
-		L -> Girar a face esquerda do cubo.
-		U -> Girar a face superior do cubo.
+		**R** -> Girar a face direita do cubo.
+		**L** -> Girar a face esquerda do cubo.
+		**U** -> Girar a face superior do cubo.
 		D -> Girar a face inferior do cubo.
 		F -> Girar a face frontal do cubo.
 		B -> Girar a face posterior do cubo.
@@ -29,10 +29,10 @@ Referências: https://github.com/nlohmann/json
 ## ##
               R                     R'                        L                        L'
                                                      
-   front       back          front  back            front       back          front       back<br/>
-   5 5 5       0 0 0         5 5 5  0 0 0           5 5 5       0 0 0         5 5 5       0 0 0<br/>
-   5 5 5       0 0 0         5 5 5  0 0 0           5 5 5       0 0 0         5 5 5       0 0 0<br/>
-   5 5 5       0 0 0         5 5 5  0 0 0           5 5 5       0 0 0         5 5 5       0 0 0<br/>
+   	front       back          front  back            front       back          front       back<br/>
+  	5 5 5       0 0 0         5 5 5  0 0 0           5 5 5       0 0 0         5 5 5       0 0 0<br/>
+  	5 5 5       0 0 0         5 5 5  0 0 0           5 5 5       0 0 0         5 5 5       0 0 0<br/>
+  	5 5 5       0 0 0         5 5 5  0 0 0           5 5 5       0 0 0         5 5 5       0 0 0<br/>
                                                      
    left   right    left   right      left   right    left   right
    4 4 4  A B C    4 4 4  A B C      A B C  1 1 1    A B C  1 1 1

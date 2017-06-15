@@ -10,6 +10,10 @@ Referências: https://github.com/nlohmann/json
 
 # Descrição: #
   Trabalho referente a diciplica de Inteligência artifícial objetiva testar diferentes tipos de algoritmos de busca e desempenho, para validação dos testes será desenvolvido o algoritmo de resolução do cubo mágico 3x3x3.
+  Os algorítmos terão resoluções através de:
+  	1. Dois algorítmos de busca cega.
+	2. Um algorítmo heurístico clássico.
+	3. Um algorítmo heurístico desenvolvido pela equipe.
   
 # Estrutura do código: #
 
@@ -26,7 +30,7 @@ Referências: https://github.com/nlohmann/json
         MV-> Girar a linha vertical do centro do cubo.
 
 ## ##
-            R               R'               L               L'
+             R               R'               L               L'
                                                      
 		front  back     front  back       front  back     front  back
 		5 5 5  0 0 0    5 5 5  0 0 0      5 5 5  0 0 0    5 5 5  0 0 0

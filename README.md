@@ -6,7 +6,7 @@
 
 Lingugaem: *C++14*
 
-Referências: https://github.com/nlohmann/json
+Bibliotecas adicionais: https://github.com/nlohmann/json
 
 # Descrição: #
 Trabalho referente a diciplica de Inteligência artifícial objetiva testar diferentes tipos de algoritmos de busca e desempenho, para validação dos testes será desenvolvido o algoritmo de resolução do cubo mágico 3x3x3.
@@ -18,19 +18,22 @@ Trabalho referente a diciplica de Inteligência artifícial objetiva testar dife
   
 # Estrutura do código: #
 
-# Movimentos: #
+# Algumas específicações do Cubo: #
 
-# Algumas específicações: #
-        R-> Girar a face direita do cubo.
-	    L-> Girar a face esquerda do cubo.
-        U-> Girar a face superior do cubo.
-        D-> Girar a face inferior do cubo.
-        F-> Girar a face frontal do cubo.
-        B-> Girar a face posterior do cubo.
-        MH-> Girar a linha horizontal do centro do cubo. 
-        MV-> Girar a linha vertical do centro do cubo.
+    R e R'   -> Girar a face direita do cubo.
+    L e L'   -> Girar a face esquerda do cubo.
+	U e U'   -> Girar a face superior do cubo.
+	D e D'   -> Girar a face inferior do cubo.    
+	F e F'   -> Girar a face frontal do cubo.
+	B e B'   -> Girar a face posterior do cubo.
+	Mh e Mh' -> Girar a linha horizontal do centro do cubo. 
+	Mv e Mv' -> Girar a linha vertical do centro do cubo.
+
+	Movimentos com apostrofo são referentes as movimentações no sentido anti-horário.
+	Movimento sem apostrofo são referentes as movimentações no sentido horário. 
 
 ## ##
+# Movimentos: #
                   R               R'               L               L'
                                                      
 		front  back     front  back       front  back     front  back

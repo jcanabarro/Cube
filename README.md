@@ -55,10 +55,10 @@ Referências: https://github.com/nlohmann/json
 		4 4 4  F 1 B    4 4 4  B 1 F      B 4 F  1 1 1    F 4 B  1 1 1
 		4 4 4  E D C    4 4 4  A H G      A H G  1 1 1    E D C  1 1 1
                                                      
-   	top    bottom   top    bottom     top    bottom   top    bottom
-   	3 3 5  2 2 0    3 3 0  2 2 5      0 3 3  5 2 2    5 3 3  0 2 2
-   	3 3 5  2 2 0    3 3 0  2 2 5      0 3 3  5 2 2    5 3 3  0 2 2
-   	3 3 5  2 2 0    3 3 0  2 2 5      0 3 3  5 2 2    5 3 3  0 2 2
+		top    bottom   top    bottom     top    bottom   top    bottom
+		3 3 5  2 2 0    3 3 0  2 2 5      0 3 3  5 2 2    5 3 3  0 2 2
+		3 3 5  2 2 0    3 3 0  2 2 5      0 3 3  5 2 2    5 3 3  0 2 2
+		3 3 5  2 2 0    3 3 0  2 2 5      0 3 3  5 2 2    5 3 3  0 2 2
    
 ## ## 
    

@@ -8,6 +8,7 @@
  	                                              
 ## Autores: ##
     João Victor Canabarro e Renan Tashiro.
+
 # Específicação #
 
 Lingugaem: *C++14*

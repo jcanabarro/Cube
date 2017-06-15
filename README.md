@@ -31,7 +31,7 @@ Trabalho referente a diciplica de Inteligência artifícial objetiva testar dife
         MV-> Girar a linha vertical do centro do cubo.
 
 ## ##
-             R               R'               L               L'
+                  R               R'               L               L'
                                                      
 		front  back     front  back       front  back     front  back
 		5 5 5  0 0 0    5 5 5  0 0 0      5 5 5  0 0 0    5 5 5  0 0 0
@@ -48,7 +48,7 @@ Trabalho referente a diciplica de Inteligência artifícial objetiva testar dife
 		3 3 3  2 2 2    3 3 3  2 2 2      3 3 3  2 2 2    3 3 3  2 2 2
 		3 3 3  2 2 2    3 3 3  2 2 2      3 3 3  2 2 2    3 3 3  2 2 2
 
-									  to  
+		                             to  
 
 		front  back     front  back       front  back     front  back
 		5 5 2  0 0 3    5 5 3  0 0 2      3 5 5  2 0 0    2 5 5  3 0 0
@@ -67,7 +67,7 @@ Trabalho referente a diciplica de Inteligência artifícial objetiva testar dife
    
 ## ## 
    
-              U               U'               D                D'
+                  U               U'               D                D'
                                                        
 		front  back     front  back       front  back     front  back
 		5 5 5  0 0 0    5 5 5  0 0 0      5 5 5  0 0 0    5 5 5  0 0 0
@@ -84,7 +84,7 @@ Trabalho referente a diciplica de Inteligência artifícial objetiva testar dife
 		H 3 D  2 2 2    H 3 D  2 2 2      3 3 3  H 2 D    3 3 3  H 2 D
 		G F E  2 2 2    G F E  2 2 2      3 3 3  G F E    3 3 3  G F E
 
-									  to   
+		                             to   
 
 		front  back     front  back       front  back     front  back
 		1 1 1  4 4 4    4 4 4  1 1 1      5 5 5  0 0 0    5 5 5  0 0 0
@@ -102,7 +102,7 @@ Trabalho referente a diciplica de Inteligência artifícial objetiva testar dife
 		E D C  2 2 2    A H G  2 2 2      3 3 3  E D C    3 3 3  A H G
    	
 ## ##   	
-              F               F'               B               B'
+                  F               F'               B               B'
                                                      
 		front  back     front  back       front  back     front  back
 		A B C  0 0 0    A B C  0 0 0      5 5 5  0 0 0    5 5 5  0 0 0
@@ -119,7 +119,7 @@ Trabalho referente a diciplica de Inteligência artifícial objetiva testar dife
 		3 3 3  2 2 2    3 3 3  2 2 2      3 3 3  H 2 D    3 3 3  H 2 D
 		3 3 3  2 2 2    3 3 3  2 2 2      3 3 3  G F E    3 3 3  G F E
 
-									 to   
+		                              to   
 
 		front  back     front  back       front  back      front  back
 		G H A  0 0 0    C D E  0 0 0      5 5 5  C D E     5 5 5  G H A 
@@ -137,7 +137,7 @@ Trabalho referente a diciplica de Inteligência artifícial objetiva testar dife
 		4 4 4  2 2 2    1 1 1  2 2 2      1 1 1  4 4 4     4 4 4  1 1 1
 
 ## ##   	
-             Mh              Mh'               Mv               Mv'
+                 Mh              Mh'               Mv               Mv'
                                                       
 		front  back     front  back       front  back      front  back
 		5 5 5  0 0 0    5 5 5  0 0 0      5 A 5  0 G 0     5 A 5  0 G 0
@@ -154,7 +154,7 @@ Trabalho referente a diciplica de Inteligência artifícial objetiva testar dife
 		3 3 3  2 2 2    3 3 3  2 2 2      3 K 3  2 E 2     3 K 3  2 E 2
 		3 3 3  2 2 2    3 3 3  2 2 2      3 L 3  2 F 2     3 L 3  2 F 2
 
-									  to  
+		                             to 
 
 		front  back     front  back       front  back      front  back
 		5 5 5  0 0 0    5 5 5  0 0 0      5 J 5  0 D 0     5 J 5  0 D 0 

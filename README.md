@@ -16,13 +16,23 @@ Referências: https://github.com/nlohmann/json
 
 # Movimentos: #
 
---------------------------------------------------------------------
-         R              R'                 L               L'
+	Algumas específicações:
+		#R# -> Girar a face direita do cubo.
+		#L# -> Girar a face esquerda do cubo.
+		#U# -> Girar a face superior do cubo.
+		#D# -> Girar a face inferior do cubo.
+		#F# -> Girar a face frontal do cubo.
+		#B# -> Girar a face posterior do cubo.
+		#Mh#-> Girar a linha horizontal do centro do cubo. 
+		#Mv#-> Girar a linha vertical do centro do cubo.
+
+## ##
+              R                     R'                        L                        L'
                                                      
-   front  back     front  back       front  back     front  back
-   5 5 5  0 0 0    5 5 5  0 0 0      5 5 5  0 0 0    5 5 5  0 0 0
-   5 5 5  0 0 0    5 5 5  0 0 0      5 5 5  0 0 0    5 5 5  0 0 0
-   5 5 5  0 0 0    5 5 5  0 0 0      5 5 5  0 0 0    5 5 5  0 0 0
+   front<br/>  back<br/>     front  back<br/>       front<br/>  back<br/>     front<br/>  back<br/>
+   5 5 5<br/>  0 0 0<br/>    5 5 5  0 0 0<br/>      5 5 5<br/>  0 0 0<br/>    5 5 5<br/>  0 0 0<br/>
+   5 5 5<br/>  0 0 0<br/>    5 5 5  0 0 0<br/>      5 5 5<br/>  0 0 0<br/>    5 5 5<br/>  0 0 0<br/>
+   5 5 5<br/>  0 0 0<br/>    5 5 5  0 0 0<br/>      5 5 5<br/>  0 0 0<br/>    5 5 5<br/>  0 0 0<br/>
                                                      
    left   right    left   right      left   right    left   right
    4 4 4  A B C    4 4 4  A B C      A B C  1 1 1    A B C  1 1 1
@@ -51,6 +61,7 @@ Referências: https://github.com/nlohmann/json
    3 3 5  2 2 0    3 3 0  2 2 5      0 3 3  5 2 2    5 3 3  0 2 2
    3 3 5  2 2 0    3 3 0  2 2 5      0 3 3  5 2 2    5 3 3  0 2 2
    
+## ## 
    
          U                U'               D                D'
                                                        

@@ -1,5 +1,5 @@
 # Cube
-## Projeto ##
+## Projeto de resolução do cubo mágico através de algorítmos##
 ## Autores: ##
   João Victor Canabarro e Renan Tashiro.
 # Específicação #
@@ -9,25 +9,24 @@ Lingugaem: *C++14*
 Referências: https://github.com/nlohmann/json
 
 # Descrição: #
-  Trabalho referente a diciplica de Inteligência artifícial objetiva testar diferentes tipos de algoritmos de busca e desempenho,
-  para validação dos testes será desenvolvido o algoritmo de resolução do cubo mágico 3x3x3.
+  Trabalho referente a diciplica de Inteligência artifícial objetiva testar diferentes tipos de algoritmos de busca e desempenho, para validação dos testes será desenvolvido o algoritmo de resolução do cubo mágico 3x3x3.
   
 # Estrutura do código: #
 
 # Movimentos: #
 
-	Algumas específicações:
-		R -> Girar a face direita do cubo.
-		L -> Girar a face esquerda do cubo.
-		U -> Girar a face superior do cubo.
-		D -> Girar a face inferior do cubo.
-		F -> Girar a face frontal do cubo.
-		B -> Girar a face posterior do cubo.
-		Mh-> Girar a linha horizontal do centro do cubo. 
-		Mv-> Girar a linha vertical do centro do cubo.
+# Algumas específicações: #
+**		R**-> Girar a face direita do cubo.
+**		L**-> Girar a face esquerda do cubo.
+**		U**-> Girar a face superior do cubo.
+**		D**-> Girar a face inferior do cubo.
+**		F**-> Girar a face frontal do cubo.
+**		B**-> Girar a face posterior do cubo.
+**		MH**-> Girar a linha horizontal do centro do cubo. 
+**		MV**-> Girar a linha vertical do centro do cubo.
 
 ## ##
-              R               R'               L               L'
+            R               R'               L               L'
                                                      
    	front  back     front  back       front  back     front  back
   	5 5 5  0 0 0    5 5 5  0 0 0      5 5 5  0 0 0    5 5 5  0 0 0
@@ -97,7 +96,7 @@ Referências: https://github.com/nlohmann/json
    	F 3 B  2 2 2    B 3 F  2 2 2      3 3 3  F 2 B    3 3 3  B 2 F
    	E D C  2 2 2    A H G  2 2 2      3 3 3  E D C    3 3 3  A H G
    	
-   	
+## ##   	
               F               F'               B               B'
                                                      
    	front  back     front  back       front  back     front  back
@@ -132,7 +131,7 @@ Referências: https://github.com/nlohmann/json
    	3 3 3  2 2 2    3 3 3  2 2 2      3 3 3  2 2 2     3 3 3  2 2 2
    	4 4 4  2 2 2    1 1 1  2 2 2      1 1 1  4 4 4     4 4 4  1 1 1
    	
-   	
+## ##   	
              Mh              Mh'               Mv               Mv'
                                                       
    	front  back     front  back       front  back      front  back
@@ -166,3 +165,4 @@ Referências: https://github.com/nlohmann/json
    	3 3 3  2 2 2    3 3 3  2 2 2      3 A 3  2 G 2     3 G 3  2 A 2 
    	3 3 3  2 2 2    3 3 3  2 2 2      3 B 3  2 H 2     3 H 3  2 B 2
    	3 3 3  2 2 2    3 3 3  2 2 2      3 C 3  2 I 2     3 I 3  2 C 2
+## ##

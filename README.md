@@ -1,4 +1,4 @@
-# Cube
+# Cube 
 ## Projeto de resolução do cubo mágico através de algorítmos ##
 ## Autores: ##
     João Victor Canabarro e Renan Tashiro.

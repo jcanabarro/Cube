@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <stdexcept>
 #include <array>
 
@@ -16,38 +17,104 @@ class Rubik
 	
 	public:
 		Rubik();
+		Rubik(int dump);
 		bool solved();
 		bool operator==(const Rubik &other) const;
-		void move_cw(int x, int y, int z, bool clockwise);
-		
+		void move(int x, int y, int z, bool clockwise);
+		void print(Rubik::face f);
+		void print();
 	private:
-		inline void swap_column(Rubik::face &a, Rubik::face &b, std::size_t index);
+		inline void swap_column(Rubik::face &a, Rubik::face &b, std::size_t index, bool mirror);
 		inline void rotate_face(Rubik::face &f, bool clockwise);
 		
-		const Rubik::face sfront, sright, stop;
-		const Rubik::face sback, sleft, sbottom;
+		Rubik::face sfront, sright, stop;
+		Rubik::face sback, sleft, sbottom;
 		Rubik::face front, right, top;
 		Rubik::face back, left, bottom;
 		std::size_t dim;
 };
+
+// -- Métodos para debug -- //
+template<std::size_t D>
+Rubik<D>::Rubik(int dump)
+{
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			front[i][j] = 'A' + (D * i + j);
+			
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			right[i][j] = 'A' + 9 + (D * i + j);
+			
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			back[i][j] = 'A' + 18 + (D * i + j);
+			
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			left[i][j] = 'a' + (D * i + j);
+			
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			top[i][j] = 'a' + 9 + (D * i + j);			
+
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			bottom[i][j] = 'a' + 18 + (D * i + j);
+	dim = D;
+}
+
+template<std::size_t D>
+void Rubik<D>::print(Rubik::face f)
+{
+	for(int i = 0; i < (int)f.size(); i++)
+	{
+		for(int j = 0; j < (int)f[i].size(); j++)
+		{
+			std::cout << char(f[i][j]) << ' ';
+		}
+		
+		std::cout << '\n';
+	}
+}
+
+template<std::size_t D>
+void Rubik<D>::print()
+{
+	std::cout << "left:\n";
+	print(left);
+	std::cout << "front:\n";
+	print(front);
+	std::cout << "right:\n";
+	print(right);
+	std::cout << "back:\n";
+	print(back);
+	std::cout << "top:\n";
+	print(top);
+	std::cout << "bottom:\n";
+	print(bottom);
+}
 
 //--------- Métodos publicos ---------//
 
 template<std::size_t D>
 Rubik<D>::Rubik()
 {
-	back.fill(YELLOW);
-	sback.fill(YELLOW);
-	right.fill(BLUE);
-	sright.fill(BLUE);
-	bottom.fill(RED);
-	sbottom.fill(RED);
-	top.fill(ORANGE);
-	stop.fill(ORANGE);
-	left.fill(GREEN);
-	sleft.fill(GREEN);
-	front.fill(WHITE);
-	sfront.fill(WHITE);
+	for(std::size_t i = 0; i < D; i++)
+	{
+		back[i].fill(YELLOW);
+		sback[i].fill(YELLOW);
+		right[i].fill(BLUE);
+		sright[i].fill(BLUE);
+		bottom[i].fill(RED);
+		sbottom[i].fill(RED);
+		top[i].fill(ORANGE);
+		stop[i].fill(ORANGE);
+		left[i].fill(GREEN);
+		sleft[i].fill(GREEN);
+		front[i].fill(WHITE);
+		sfront[i].fill(WHITE);
+	}
 	dim = D;
 }
 
@@ -80,12 +147,12 @@ bool Rubik<D>::operator==(const Rubik &other) const
  *       2. Não pode ter dois valores diferentes de -1.
  */
 template<std::size_t D>
-void Rubik<D>::move_cw(int x, int y, int z, bool clockwise)
+void Rubik<D>::move(int x, int y, int z, bool clockwise)
 {
 	// indices invalidos
-	if(x >= dim || y >= dim || z >= dim)
+	if(x >= (int)dim || y >= (int)dim || z >= (int)dim)
 	{
-		throw std::out_of_range();
+		throw std::out_of_range("");
 	}
 
     // rotaciona uma face dependendo dos indice 
@@ -93,7 +160,7 @@ void Rubik<D>::move_cw(int x, int y, int z, bool clockwise)
 	{
 		rotate_face(top, clockwise);
 	}
-	else if(x == dim - 1)
+	else if(x == (int)dim - 1)
 	{
 		rotate_face(bottom, !clockwise);
 	}
@@ -101,7 +168,7 @@ void Rubik<D>::move_cw(int x, int y, int z, bool clockwise)
 	{
 		rotate_face(left, clockwise);
 	}
-	else if(y == dim - 1)
+	else if(y == (int)dim - 1)
 	{
 		rotate_face(right, !clockwise);
 	}
@@ -109,13 +176,13 @@ void Rubik<D>::move_cw(int x, int y, int z, bool clockwise)
 	{
 		rotate_face(front, clockwise);
 	}
-	else if(z == dim - 1)
+	else if(z == (int)dim - 1)
 	{
 		rotate_face(back, !clockwise);
 	}					
 	
 	// rotaciona uma linha, coluna ou lateral
-	if(clockwise)
+	if(!clockwise)
 	{
 		if(x != -1)
 	 	{
@@ -125,15 +192,15 @@ void Rubik<D>::move_cw(int x, int y, int z, bool clockwise)
 		}
 		else if(y != -1)
 		{
-			swap_column(front, top, y);
-			swap_column(front, back, y);
-			swap_column(front, bottom, y);
+			swap_column(front, top, y, false);
+			swap_column(front, back, y, true);
+			swap_column(front, bottom, y, false);
 		}
 		else if(z != -1)
 		{	
-			swap_column(right, top, z);
-			swap_column(right, left, z);
-			swap_column(right, bottom, z);
+			swap_column(right, top, z, false);
+			swap_column(right, left, z, true);
+			swap_column(right, bottom, z, false);
 		}
 	}
 	else
@@ -146,15 +213,15 @@ void Rubik<D>::move_cw(int x, int y, int z, bool clockwise)
 		}
 		else if(y != -1)
 		{
-			swap_column(front, bottom, y);
-			swap_column(front, back, y);
-			swap_column(front, top, y);
+			swap_column(front, bottom, y, false);
+			swap_column(front, back, y, true);
+			swap_column(front, top, y, false);
 		}
 		else if(z != -1)
 		{
-			swap_column(right, bottom, z);
-			swap_column(right, left, z);
-			swap_column(right, top, z);			
+			swap_column(right, bottom, z, false);
+			swap_column(right, left, z, true);
+			swap_column(right, top, z, false);			
 		}		
 	}
 }
@@ -166,9 +233,9 @@ inline void Rubik<D>::rotate_face(Rubik::face &f, bool clockwise)
 {
 	if(clockwise)
 	{
-		for(int i = 0; i < dim / 2; i++)
+		for(int i = 0; i < (int)dim / 2; i++)
 		{
-			for(int j = 0; j < dim - i - 1; j++)
+			for(int j = 0; j < (int)dim - i - 1; j++)
 			{
 				int tmp = f[i][j];
 				
@@ -197,14 +264,63 @@ inline void Rubik<D>::rotate_face(Rubik::face &f, bool clockwise)
 }
 
 template<std::size_t D>
-inline void Rubik<D>::swap_column(Rubik::face &a, Rubik::face &b, std::size_t index)
+inline void Rubik<D>::swap_column(Rubik::face &a, Rubik::face &b, std::size_t index, bool mirror)
 {
-	for(int i = 0; i < dim; i++)
+	if(mirror)
 	{
-		swap(a[i][index], b[i][index]);
+		// Confirmar isso
+		for(int i = 0; i < (int)dim; i++)
+		{
+			int tmp = a[i][index];
+			a[i][index] = b[dim-i-1][dim-index-1];
+			b[dim-i-1][dim-index-1] = tmp; 
+		}	
+	}
+	else
+	{
+		for(int i = 0; i < (int)dim; i++)
+		{
+			int tmp = a[i][index];
+			a[i][index] = b[i][index];
+			b[i][index] = tmp;
+		}
 	}
 }
 
 int main()
 {	
+	int move_x[] = {0, 1, 2, 0, 1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+	int move_y[] = {-1, -1, -1, -1, -1, -1, 0, 1, 2, 0, 1, 2, -1, -1, -1, -1, -1, -1};
+	int move_z[] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 0, 1, 2};
+	int move_c[] = {1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0}; 
+	
+	int itest = 6;
+	
+	for(int i = itest; i <= itest; i++)
+	{
+		Rubik<3> rubik(12938);
+		
+		rubik.move(move_x[i], move_y[i], move_z[i], move_c[i]);
+		rubik.print();	
+	}
 }
+
+//~ Moviments
+//~ 0 -1 -1 true  - OK
+//~ 1 -1 -1 true  - OK
+//~ 2 -1 -1 true  - OK
+//~ 0 -1 -1 false - OK
+//~ 1 -1 -1 false - OK
+//~ 2 -1 -1 false - OK
+//~ -1 0 -1 true
+//~ -1 1 -1 true
+//~ -1 2 -1 true
+//~ -1 0 -1 false
+//~ -1 1 -1 false
+//~ -1 2 -1 false
+//~ -1 -1 0 true
+//~ -1 -1 1 true
+//~ -1 -1 2 true
+//~ -1 -1 0 false
+//~ -1 -1 1 false
+//~ -1 -1 2 false

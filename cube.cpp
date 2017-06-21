@@ -17,9 +17,10 @@ class Rubik
 	
 	public:
 		Rubik();
+		Rubik(const Rubik<D> &other);
 		Rubik(int dump);
 		bool solved();
-		bool operator==(const Rubik &other) const;
+		bool operator==(const Rubik<D> &other) const;
 		void move(int x, int y, int z, bool clockwise);
 		void print(Rubik::face f);
 		void print();
@@ -33,6 +34,25 @@ class Rubik
 		Rubik::face back, left, bottom;
 		std::size_t dim;
 };
+
+
+// -- Implementando
+template<std::size_t D>
+Rubik<D>::Rubik(const Rubik<D> &other)
+{
+	back = other.back();
+	sback = other.sback();
+	right = other.right();
+	sright = other.sright();
+	bottom = other.bottom();
+	sbottom = other.sbottom();
+	top = other.top();
+	stop = other.stop();
+	left = other.left();
+	sleft = other.sleft();
+	front = other.front();
+	sfront = other.sfront();
+}
 
 // -- Métodos para debug -- //
 template<std::size_t D>
@@ -71,7 +91,8 @@ void Rubik<D>::print(Rubik::face f)
 	{
 		for(int j = 0; j < (int)f[i].size(); j++)
 		{
-			std::cout << char(f[i][j]) << ' ';
+			//~ std::cout << char(f[i][j]) << ' ';
+			std::cout << f[i][j] << ' ';
 		}
 		
 		std::cout << '\n';
@@ -113,8 +134,19 @@ Rubik<D>::Rubik()
 		left[i].fill(GREEN);
 		sleft[i].fill(GREEN);
 		front[i].fill(WHITE);
-		sfront[i].fill(WHITE);
+		sfront[i].fill(WHITE);	
 	}
+	
+	/*for(std::size_t i = 0; i < D; i++)
+	{
+		for(std::size_t j = 0; j < D; j++)
+		{
+			std::cout << sfront[i][j] << ' ';
+		}
+		
+		std::cout << "\n";
+	}*/
+	
 	dim = D;
 }
 
@@ -286,41 +318,3 @@ inline void Rubik<D>::swap_column(Rubik::face &a, Rubik::face &b, std::size_t in
 		}
 	}
 }
-
-int main()
-{	
-	int move_x[] = {0, 1, 2, 0, 1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-	int move_y[] = {-1, -1, -1, -1, -1, -1, 0, 1, 2, 0, 1, 2, -1, -1, -1, -1, -1, -1};
-	int move_z[] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 0, 1, 2};
-	int move_c[] = {1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0}; 
-	
-	int itest = 6;
-	
-	for(int i = itest; i <= itest; i++)
-	{
-		Rubik<3> rubik(12938);
-		
-		rubik.move(move_x[i], move_y[i], move_z[i], move_c[i]);
-		rubik.print();	
-	}
-}
-
-//~ Moviments
-//~ 0 -1 -1 true  - OK
-//~ 1 -1 -1 true  - OK
-//~ 2 -1 -1 true  - OK
-//~ 0 -1 -1 false - OK
-//~ 1 -1 -1 false - OK
-//~ 2 -1 -1 false - OK
-//~ -1 0 -1 true
-//~ -1 1 -1 true
-//~ -1 2 -1 true
-//~ -1 0 -1 false
-//~ -1 1 -1 false
-//~ -1 2 -1 false
-//~ -1 -1 0 true
-//~ -1 -1 1 true
-//~ -1 -1 2 true
-//~ -1 -1 0 false
-//~ -1 -1 1 false
-//~ -1 -1 2 false

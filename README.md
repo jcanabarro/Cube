@@ -13,8 +13,7 @@
 
 Lingugaem: *C++14*
 
-Bibliotecas adicionais: https://github.com/nlohmann/json
-
+Bibliotecas adicionais: https://github.com/nlohmann/json <br>			http://www.cos.ufrj.br/%7Eines/courses/cos740/leila/cos740/cubo.pdf
 # Descrição: #
 Trabalho referente a diciplica de Inteligência artifícial objetiva testar diferentes tipos de algoritmos de busca e desempenho, para validação dos testes será desenvolvido o algoritmo de resolução do cubo mágico 3x3x3.
 
@@ -36,8 +35,17 @@ Trabalho referente a diciplica de Inteligência artifícial objetiva testar dife
 	Mh e Mh' -> Girar a linha horizontal do centro do cubo. 
 	Mv e Mv' -> Girar a linha vertical do centro do cubo.
 
-	Movimentos com apostrofo são referentes as movimentações no sentido anti-horário.
-	Movimento sem apostrofo são referentes as movimentações no sentido horário. 
+	Movimentos com apóstrofo são referentes as movimentações no sentido anti-horário.
+	Movimento sem apóstrofo são referentes as movimentações no sentido horário. 
+
+# Tratamento de cores do Cubo: #
+	As cores são representadas por números em uma matriz para facilitar e otimizar as buscas.
+		Amarelo representado pelo número 0.
+		Azul representado pelo número 1.
+		Branco representado pelo número 5.
+		Laranja representado pelo número 3.
+		Vermelho representado pelo número 2.
+		Verde representado pelo número 4.
 
 ## ##
 # Movimentos: #

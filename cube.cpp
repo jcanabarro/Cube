@@ -21,6 +21,7 @@ class Rubik
 		Rubik(int dump);
 		bool solved();
 		bool operator==(const Rubik<D> &other) const;
+		bool operator<(const Rubik<D> &other) const;
 		void move(int x, int y, int z, bool clockwise);
 		void print(Rubik::face f);
 		void print();
@@ -40,18 +41,97 @@ class Rubik
 template<std::size_t D>
 Rubik<D>::Rubik(const Rubik<D> &other)
 {
-	back = other.back();
-	sback = other.sback();
-	right = other.right();
-	sright = other.sright();
-	bottom = other.bottom();
-	sbottom = other.sbottom();
-	top = other.top();
-	stop = other.stop();
-	left = other.left();
-	sleft = other.sleft();
-	front = other.front();
-	sfront = other.sfront();
+	back = other.back;
+	sback = other.sback;
+	right = other.right;
+	sright = other.sright;
+	bottom = other.bottom;
+	sbottom = other.sbottom;
+	top = other.top;
+	stop = other.stop;
+	left = other.left;
+	sleft = other.sleft;
+	front = other.front;
+	sfront = other.sfront;
+	dim = other.dim;
+}
+
+template<std::size_t D>
+bool Rubik<D>::operator<(const Rubik<D> &other) const
+{
+	// front
+	for(std::size_t i = 0; i < D; i++)
+	{
+		for(std::size_t j = 0; j < D; j++)
+		{
+			if(front[i][j] != other.front[i][j]) 
+			{
+				return front[i][j] < other.front[i][j];
+			}
+		}
+	}
+	
+	// right
+	for(std::size_t i = 0; i < D; i++)
+	{
+		for(std::size_t j = 0; j < D; j++)
+		{
+			if(right[i][j] != other.right[i][j]) 
+			{
+				return right[i][j] < other.right[i][j];
+			}
+		}
+	}
+	
+	// back
+	for(std::size_t i = 0; i < D; i++)
+	{
+		for(std::size_t j = 0; j < D; j++)
+		{
+			if(back[i][j] != other.back[i][j]) 
+			{
+				return back[i][j] < other.back[i][j];
+			}
+		}
+	}
+	
+	// left
+	for(std::size_t i = 0; i < D; i++)
+	{
+		for(std::size_t j = 0; j < D; j++)
+		{
+			if(left[i][j] != other.left[i][j]) 
+			{
+				return left[i][j] < other.left[i][j];
+			}
+		}
+	}
+	
+	// top
+	for(std::size_t i = 0; i < D; i++)
+	{
+		for(std::size_t j = 0; j < D; j++)
+		{
+			if(top[i][j] != other.top[i][j]) 
+			{
+				return top[i][j] < other.top[i][j];
+			}
+		}
+	}
+	
+	// bottom
+	for(std::size_t i = 0; i < D; i++)
+	{
+		for(std::size_t j = 0; j < D; j++)
+		{
+			if(bottom[i][j] != other.bottom[i][j]) 
+			{
+				return bottom[i][j] < other.bottom[i][j];
+			}
+		}
+	}
+	
+	return false;
 }
 
 // -- Métodos para debug -- //
@@ -137,16 +217,6 @@ Rubik<D>::Rubik()
 		sfront[i].fill(WHITE);	
 	}
 	
-	/*for(std::size_t i = 0; i < D; i++)
-	{
-		for(std::size_t j = 0; j < D; j++)
-		{
-			std::cout << sfront[i][j] << ' ';
-		}
-		
-		std::cout << "\n";
-	}*/
-	
 	dim = D;
 }
 
@@ -190,27 +260,27 @@ void Rubik<D>::move(int x, int y, int z, bool clockwise)
     // rotaciona uma face dependendo dos indice 
 	if(x == 0)
 	{
-		rotate_face(top, clockwise);
+		rotate_face(top, clockwise); // ok
 	}
 	else if(x == (int)dim - 1)
 	{
-		rotate_face(bottom, !clockwise);
+		rotate_face(bottom, clockwise); // ok
 	}
 	else if(y == 0)
 	{
-		rotate_face(left, clockwise);
+		rotate_face(left, clockwise); // ok
 	}
 	else if(y == (int)dim - 1)
 	{
-		rotate_face(right, !clockwise);
+		rotate_face(right, clockwise); // ok
 	}
 	else if(z == 0)
 	{
-		rotate_face(front, clockwise);
+		rotate_face(front, clockwise); // ok
 	}
 	else if(z == (int)dim - 1)
 	{
-		rotate_face(back, !clockwise);
+		rotate_face(back, clockwise); // ok
 	}					
 	
 	// rotaciona uma linha, coluna ou lateral
@@ -224,15 +294,18 @@ void Rubik<D>::move(int x, int y, int z, bool clockwise)
 		}
 		else if(y != -1)
 		{
-			swap_column(front, top, y, false);
-			swap_column(front, back, y, true);
 			swap_column(front, bottom, y, false);
+			swap_column(front, back, y, true);
+			swap_column(front, top, y, false);
 		}
 		else if(z != -1)
 		{	
-			swap_column(right, top, z, false);
-			swap_column(right, left, z, true);
+			//~ swap_column(right, top, z, false);
+			//~ swap_column(right, left, z, true);
+			//~ swap_column(right, bottom, z, false);
 			swap_column(right, bottom, z, false);
+			swap_column(right, left, z, true);
+			swap_column(right, top, z, false);			
 		}
 	}
 	else
@@ -245,15 +318,18 @@ void Rubik<D>::move(int x, int y, int z, bool clockwise)
 		}
 		else if(y != -1)
 		{
-			swap_column(front, bottom, y, false);
-			swap_column(front, back, y, true);
 			swap_column(front, top, y, false);
+			swap_column(front, back, y, true);
+			swap_column(front, bottom, y, false);
 		}
 		else if(z != -1)
 		{
-			swap_column(right, bottom, z, false);
+			swap_column(right, top, z, false);
 			swap_column(right, left, z, true);
-			swap_column(right, top, z, false);			
+			swap_column(right, bottom, z, false);
+			//~ swap_column(right, bottom, z, false);
+			//~ swap_column(right, left, z, true);
+			//~ swap_column(right, top, z, false);			
 		}		
 	}
 }

@@ -41,6 +41,16 @@ std::vector<int> Shuffle<D>::get_mcw()
 	return move_cw;
 }
 
+void print(std::vector<int> a)
+{
+	for(auto A : a)
+	{
+		std::cout << A << ' ';
+	}
+	
+	std::cout << std::endl;
+}
+
 template<std::size_t D>
 Shuffle<D>::Shuffle()
 {
@@ -48,20 +58,29 @@ Shuffle<D>::Shuffle()
 	int n_axis_moves = 2 * D;
 	int max_idx_n = D;
 	
-	move_x = std::vector<int>(total_n_moves);
-	move_y = std::vector<int>(total_n_moves);
-	move_z = std::vector<int>(total_n_moves);
-	move_cw = std::vector<int>(total_n_moves);
+	move_x = std::vector<int>(total_n_moves); // ERADO
+	move_y = std::vector<int>(total_n_moves); // RRADO
+	move_z = std::vector<int>(total_n_moves); // ADO
+	move_cw = std::vector<int>(total_n_moves); // NOP
 	
 	for(int i = 0; i < total_n_moves; i++)
 	{
 		move_x[i] = i < n_axis_moves ? i % max_idx_n : -1;
 		move_y[i] = i < n_axis_moves * 2 && i >= n_axis_moves ? i % max_idx_n : -1;
 		move_z[i] = i >= n_axis_moves * 2 ? i % max_idx_n : -1;
-		move_cw[i] = i % D; 
+		//~ move_cw[i] = i % 2; // i % 2 // i % D <- BUG
+		move_cw[i] = (i % (D * 2)) >= D; // i % 2 // i % D <- BUG
 	}
+	
+	//~ 0 0 1 1 0 0 1 1 0 0 1 1
+	//~ 0 0 0 1 1 1 0 0 0 1 1 1
+	
+	//~ print(move_x);
+	//~ print(move_y);
+	//~ print(move_z);
+	//~ print(move_cw);
+	//~ std::cout << "---------\n";
 }
-
 
 template<std::size_t D>
 Rubik<D> Shuffle<D>::random(int n_moves)

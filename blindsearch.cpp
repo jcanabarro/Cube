@@ -78,32 +78,14 @@ bool bfs(Rubik<D> cube)
 	return false;
 }
 
-int main()
-{
-	Shuffle<3> shuffle;
+//~ int main()
+//~ {
+	//~ Shuffle<3> shuffle;
 	
-	Rubik<3> cube = shuffle.random(4);
+	//~ Rubik<3> cube = shuffle.random(5);
 	
 	//~ bfs<3>(cube);
-	std::set<Rubik<3>> visited;
-	std::cout << limited_dfs<3>(cube, visited, 0, 5) << std::endl;
-	std::cout << states << std::endl;
-	
-	//~ for(int i = 0; i < 12; i++)
-	//~ {
-		//~ std::cout << "i=" << i << std::endl;
-		//~ Rubik<2> cube;
-		//~ std::cout << shuffle.get_mx()[i] << ' ' << shuffle.get_my()[i] << ' ' << shuffle.get_mz()[i] << ' ' << shuffle.get_mcw()[i] << std::endl;
-		//~ cube.move(shuffle.get_mx()[i], shuffle.get_my()[i], shuffle.get_mz()[i], shuffle.get_mcw()[i]);
-		//~ cube.move(shuffle.get_mx()[i], shuffle.get_my()[i], shuffle.get_mz()[i], !shuffle.get_mcw()[i]);
-	
-		//~ bfs<2>(cube);	
-	//~ }
-}
-
-//~ 0, -1, -1, 0
-//~ 0, -1, -1, 1
-//~ 1, -1, -1, 1
-//~ -1, 0, -1, 1
-// -1, -1, 0, 0 ACHAMO O BUGs
-// -1, -1, 2, 0 ACHAMO O BUG2
+	//~ std::set<Rubik<3>> visited;
+	//~ std::cout << limited_dfs<3>(cube, visited, 0, 10) << std::endl;
+	//~ std::cout << states << std::endl;
+//~ }

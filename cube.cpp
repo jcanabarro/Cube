@@ -25,14 +25,13 @@ class Rubik
 		void move(int x, int y, int z, bool clockwise);
 		void print(Rubik::face f);
 		void print();
-	private:
-		inline void swap_column(Rubik::face &a, Rubik::face &b, std::size_t index, bool mirror);
-		inline void rotate_face(Rubik::face &f, bool clockwise);
-		
-		Rubik::face sfront, sright, stop;
-		Rubik::face sback, sleft, sbottom;
 		Rubik::face front, right, top;
 		Rubik::face back, left, bottom;
+	private:
+		inline void swap_column(Rubik::face &a, Rubik::face &b, std::size_t index, bool mirror);
+		inline void rotate_face(Rubik::face &f, bool clockwise);		
+		Rubik::face sfront, sright, stop;
+		Rubik::face sback, sleft, sbottom;
 		std::size_t dim;
 };
 
@@ -300,9 +299,6 @@ void Rubik<D>::move(int x, int y, int z, bool clockwise)
 		}
 		else if(z != -1)
 		{	
-			//~ swap_column(right, top, z, false);
-			//~ swap_column(right, left, z, true);
-			//~ swap_column(right, bottom, z, false);
 			swap_column(right, bottom, z, false);
 			swap_column(right, left, z, true);
 			swap_column(right, top, z, false);			
@@ -327,9 +323,7 @@ void Rubik<D>::move(int x, int y, int z, bool clockwise)
 			swap_column(right, top, z, false);
 			swap_column(right, left, z, true);
 			swap_column(right, bottom, z, false);
-			//~ swap_column(right, bottom, z, false);
-			//~ swap_column(right, left, z, true);
-			//~ swap_column(right, top, z, false);			
+		
 		}		
 	}
 }
@@ -376,7 +370,6 @@ inline void Rubik<D>::swap_column(Rubik::face &a, Rubik::face &b, std::size_t in
 {
 	if(mirror)
 	{
-		// Confirmar isso
 		for(int i = 0; i < (int)dim; i++)
 		{
 			int tmp = a[i][index];

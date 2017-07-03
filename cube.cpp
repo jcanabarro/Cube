@@ -13,7 +13,7 @@
 template<std::size_t D> 
 class Rubik
 {
-	typedef std::array<std::array<int,D>,D> face;
+	typedef std::array<std::array<char,D>,D> face;
 	
 	public:
 		Rubik();
@@ -35,8 +35,38 @@ class Rubik
 		std::size_t dim;
 };
 
+//--------- Métodos publicos ---------//
 
-// -- Implementando
+template<std::size_t D>
+Rubik<D>::Rubik()
+{
+	for(std::size_t i = 0; i < D; i++)
+	{
+		back[i].fill(YELLOW);
+		sback[i].fill(YELLOW);
+		right[i].fill(BLUE);
+		sright[i].fill(BLUE);
+		bottom[i].fill(RED);
+		sbottom[i].fill(RED);
+		top[i].fill(ORANGE);
+		stop[i].fill(ORANGE);
+		left[i].fill(GREEN);
+		sleft[i].fill(GREEN);
+		front[i].fill(WHITE);
+		sfront[i].fill(WHITE);	
+	}
+	
+	dim = D;
+}
+
+template<std::size_t D>
+bool Rubik<D>::solved()
+{
+	return front == sfront && back   == sback 
+	    && right == sright && left   == sleft 
+	    && top   == stop   && bottom == sbottom;
+}
+
 template<std::size_t D>
 Rubik<D>::Rubik(const Rubik<D> &other)
 {
@@ -131,100 +161,6 @@ bool Rubik<D>::operator<(const Rubik<D> &other) const
 	}
 	
 	return false;
-}
-
-// -- Métodos para debug -- //
-template<std::size_t D>
-Rubik<D>::Rubik(int dump)
-{
-	for(int i = 0; i < (int)D; i++)
-		for(int j = 0; j < (int)D; j++)
-			front[i][j] = 'A' + (D * i + j);
-			
-	for(int i = 0; i < (int)D; i++)
-		for(int j = 0; j < (int)D; j++)
-			right[i][j] = 'A' + 9 + (D * i + j);
-			
-	for(int i = 0; i < (int)D; i++)
-		for(int j = 0; j < (int)D; j++)
-			back[i][j] = 'A' + 18 + (D * i + j);
-			
-	for(int i = 0; i < (int)D; i++)
-		for(int j = 0; j < (int)D; j++)
-			left[i][j] = 'a' + (D * i + j);
-			
-	for(int i = 0; i < (int)D; i++)
-		for(int j = 0; j < (int)D; j++)
-			top[i][j] = 'a' + 9 + (D * i + j);			
-
-	for(int i = 0; i < (int)D; i++)
-		for(int j = 0; j < (int)D; j++)
-			bottom[i][j] = 'a' + 18 + (D * i + j);
-	dim = D;
-}
-
-template<std::size_t D>
-void Rubik<D>::print(Rubik::face f)
-{
-	for(int i = 0; i < (int)f.size(); i++)
-	{
-		for(int j = 0; j < (int)f[i].size(); j++)
-		{
-			//~ std::cout << char(f[i][j]) << ' ';
-			std::cout << f[i][j] << ' ';
-		}
-		
-		std::cout << '\n';
-	}
-}
-
-template<std::size_t D>
-void Rubik<D>::print()
-{
-	std::cout << "left:\n";
-	print(left);
-	std::cout << "front:\n";
-	print(front);
-	std::cout << "right:\n";
-	print(right);
-	std::cout << "back:\n";
-	print(back);
-	std::cout << "top:\n";
-	print(top);
-	std::cout << "bottom:\n";
-	print(bottom);
-}
-
-//--------- Métodos publicos ---------//
-
-template<std::size_t D>
-Rubik<D>::Rubik()
-{
-	for(std::size_t i = 0; i < D; i++)
-	{
-		back[i].fill(YELLOW);
-		sback[i].fill(YELLOW);
-		right[i].fill(BLUE);
-		sright[i].fill(BLUE);
-		bottom[i].fill(RED);
-		sbottom[i].fill(RED);
-		top[i].fill(ORANGE);
-		stop[i].fill(ORANGE);
-		left[i].fill(GREEN);
-		sleft[i].fill(GREEN);
-		front[i].fill(WHITE);
-		sfront[i].fill(WHITE);	
-	}
-	
-	dim = D;
-}
-
-template<std::size_t D>
-bool Rubik<D>::solved()
-{
-	return front == sfront && back   == sback 
-	    && right == sright && left   == sleft 
-	    && top   == stop   && bottom == sbottom;
 }
 
 template<std::size_t D>
@@ -386,4 +322,66 @@ inline void Rubik<D>::swap_column(Rubik::face &a, Rubik::face &b, std::size_t in
 			b[i][index] = tmp;
 		}
 	}
+}
+
+// -- Métodos para debug -- //
+template<std::size_t D>
+Rubik<D>::Rubik(int dump)
+{
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			front[i][j] = 'A' + (D * i + j);
+			
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			right[i][j] = 'A' + 9 + (D * i + j);
+			
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			back[i][j] = 'A' + 18 + (D * i + j);
+			
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			left[i][j] = 'a' + (D * i + j);
+			
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			top[i][j] = 'a' + 9 + (D * i + j);			
+
+	for(int i = 0; i < (int)D; i++)
+		for(int j = 0; j < (int)D; j++)
+			bottom[i][j] = 'a' + 18 + (D * i + j);
+	dim = D;
+}
+
+template<std::size_t D>
+void Rubik<D>::print(Rubik::face f)
+{
+	for(int i = 0; i < (int)f.size(); i++)
+	{
+		for(int j = 0; j < (int)f[i].size(); j++)
+		{
+			//~ std::cout << char(f[i][j]) << ' ';
+			std::cout << f[i][j] << ' ';
+		}
+		
+		std::cout << '\n';
+	}
+}
+
+template<std::size_t D>
+void Rubik<D>::print()
+{
+	std::cout << "left:\n";
+	print(left);
+	std::cout << "front:\n";
+	print(front);
+	std::cout << "right:\n";
+	print(right);
+	std::cout << "back:\n";
+	print(back);
+	std::cout << "top:\n";
+	print(top);
+	std::cout << "bottom:\n";
+	print(bottom);
 }

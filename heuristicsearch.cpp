@@ -3,10 +3,10 @@
 #include <queue>
 #include <utility>
 #include <set>
-#include <time.h>
+#include <chrono>
 
 template<std::size_t D>
-int _heuristic(std::array<std::array<int,D>,D> f, int color)
+int _heuristic(std::array<std::array<char,D>,D> f, int color)
 {
 	int cost = 0;
 	
@@ -40,10 +40,12 @@ bool astar(Rubik<D> cube)
 {
 	srand(time(NULL));
 	
+	if(cube.solved()) return true;
+	
 	Shuffle<D> move;
 	std::priority_queue<std::pair<int,Rubik<D>>, std::vector<std::pair<int,Rubik<D>>>, std::greater<std::pair<int,Rubik<D>>>> next;
 	std::set<Rubik<D>> visited;
-		
+	
 	next.push({0, Rubik<D>(cube)});
 	visited.insert(Rubik<D>(cube));
 	
@@ -53,13 +55,7 @@ bool astar(Rubik<D> cube)
 	{
 		std::pair<int,Rubik<D>> u = next.top();
 		next.pop();
-		
-		if(u.second.solved())
-		{
-			std::cout << state << std::endl;
-			return true;
-		}
-		
+				
 		state++;		
 		
 		for(std::size_t i = 0; i < 6 * D; i++)
@@ -85,11 +81,8 @@ bool astar(Rubik<D> cube)
 }
 
 int main()
-{
-	Shuffle<3> shuffle;
-	
-	Rubik<3> cube = shuffle.random(8);
-	
-	astar<3>(cube);
-	bfs<3>(cube);
+{	
+	Shuffle<2> shuffle;
+	Rubik<2> cube = shuffle.random(20); // 3x3 Com quinze ainda não dá com 15
+	astar<2>(cube);
 }

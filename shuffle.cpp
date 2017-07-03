@@ -1,5 +1,6 @@
 #include "cube.cpp"
 #include <vector>
+#include <set>
 #include <cstdlib>
 #include <ctime>
 
@@ -66,15 +67,27 @@ template<std::size_t D>
 Rubik<D> Shuffle<D>::random(int n_moves)
 {
 	Rubik<D> cube;	
+	std::set<Rubik<D>> visited;
 	int total_n_moves = 6 * D;
 	
 	srand(time(NULL));
+	visited.insert(cube);
 	
 	for(int i = 0; i < n_moves; i++)
 	{
 		int index = rand() % total_n_moves;
 		
-		cube.move(move_x[index], move_y[index], move_z[index], move_cw[index]);
+		Rubik<D> tmp(cube);
+		
+		tmp.move(move_x[index], move_y[index], move_z[index], move_cw[index]);
+		
+		if(visited.find(tmp) != visited.end())
+		{
+			i--;
+			continue;
+		}
+		
+		cube = tmp;
 	}
 	
 	return cube;

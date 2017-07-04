@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/Cube.dir/blindsearch.cpp.o CMakeFiles/Cube.dir/cube.cpp.o CMakeFiles/Cube.dir/heuristicsearch.cpp.o CMakeFiles/Cube.dir/shuffle.cpp.o  -o Cube 

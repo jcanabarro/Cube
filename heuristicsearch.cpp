@@ -5,6 +5,11 @@
 #include <set>
 #include <chrono>
 
+typedef std::pair<int,int> ii;
+
+#define COST first.first
+#define LAYER first.second
+
 template<std::size_t D>
 int _heuristic(std::array<std::array<char,D>,D> f, int color)
 {
@@ -83,15 +88,15 @@ bool astar(Rubik<D> cube)
 
 
 template<std::size_t D>
-int _layer(std::array<std::array<char,D>,D> f, int color, int layer_solve)
+int _layer(std::array<std::array<char,D>,D> f, int color, int layer)
 {
 	int cost = 0;
 	
-	for(std::size_t i = 0; i < D; i++)
+	for(std::size_t i = 0; i <= (std::size_t)layer; i++)
 	{
 		for(std::size_t j = 0; j < D; j++)
 		{
-			if(f[layer_solve-1][j] != color)
+			if(f[i][j] != color)
 			{
 				cost++;
 			}
@@ -114,39 +119,42 @@ where layer = 3
 */
 
 template<std::size_t D> 
-int layer(Rubik<D> cube, int layer_solve[], int ind)
+int layer(Rubik<D> cube, int layer_)
 {
-	if(layer_solve[ind] == 0)
-		return _heuristic<D>(cube.bottom, RED);
-    else if()
-	else if(layer_solve[ind] == 1 || layer_solve[ind] == 2)
-		return _layer<D>(cube.front, WHITE, layer_solve[ind])
-	     	 + _layer<D>(cube.back, YELLOW, layer_solve[ind])
-	         + _layer<D>(cube.right, BLUE, layer_solve[ind])
-	         + _layer<D>(cube.left, GREEN, layer_solve[ind]);
+	return _layer<D>(cube.front, WHITE, layer_)
+	     + _layer<D>(cube.back, YELLOW, layer_)
+	     + _layer<D>(cube.right, BLUE, layer_)
+	     + _layer<D>(cube.left, GREEN, layer_)
+	     + _layer<D>(cube.bottom, RED, D - 1)
+	     + (layer_ == D - 1) ? _layer<D>(cube.top, ORANGE, layer_) : 0;
 }
 
-
 template<std::size_t D>
-bool needThinkBetter(Rubik<D> cube)
+bool lastar(Rubik<D> cube)
 {
 	if(cube.solved()) return true;
 	
 	Shuffle<D> move;
-    std::priority_queue<std::pair<int,Rubik<D>>, std::vector<std::pair<int,Rubik<D>>>, std::greater<std::pair<int,Rubik<D>>>> next;
+    std::priority_queue<std::pair<ii,Rubik<D>>, std::vector<std::pair<ii,Rubik<D>>>, std::greater<std::pair<ii,Rubik<D>>>> next;
     std::set<Rubik<D>> visited;
 
-    next.push({0, Rubik<D>(cube)});
+    next.push({{0, 0}, Rubik<D>(cube)});
 	visited.insert(Rubik<D>(cube));
 	
+	int layer_ = 0;
 	int state = 0;
-	int layer_solve[4] = { 0,1,3,2 };
-	int ind = 0;
+
+	std::cout << "HELLO LA*" << std::endl; 
 
 	while(!next.empty())
 	{
-		std::pair<int,Rubik<D>> u = next.top();
+		std::pair<ii,Rubik<D>> u = next.top();
 		next.pop();
+				
+		if(u.LAYER < layer_) continue;		
+				
+		//~ std::cout << "layer=" << u.LAYER << std::endl;		
+		//~ std::cout << "cost=" << u.COST << " states=" << state << std::endl;		
 				
 		state++;		
 		
@@ -163,11 +171,21 @@ bool needThinkBetter(Rubik<D> cube)
 			
 			if(visited.find(v) == visited.end())
 			{
-				next.push({1 + u.first + layer<D>(v, layer_solve, ind), Rubik<D>(v)});
+				int hcost = layer<D>(v, layer_);
+				
+				if(hcost == 0)
+				{
+					layer_ = std::max(layer_, u.LAYER + 1);
+					
+					if(u.LAYER < layer_)
+					{
+						std::cout << "STATE=" << state << std::endl;
+					}
+					
+				}
+				
+				next.push({{1 + u.COST + hcost, layer_}, Rubik<D>(v)});
 				visited.insert(Rubik<D>(v));
-				ind++;
-				if(ind == 4)
-					ind = 0;
 			}
 		}
 	}
@@ -178,6 +196,7 @@ bool needThinkBetter(Rubik<D> cube)
 int main()
 {	
 	Shuffle<2> shuffle;
-	Rubik<2> cube = shuffle.random(20); // 3x3 Com quinze ainda não dá com 15
-	astar<2>(cube);
+	Rubik<2> cube = shuffle.random(3); // 3x3 Com quinze ainda não dá com 15
+	// astar<2>(cube);
+	lastar<2>(cube);
 }

@@ -361,8 +361,8 @@ void Rubik<D>::print(Rubik::face f)
 	{
 		for(int j = 0; j < (int)f[i].size(); j++)
 		{
-			//~ std::cout << char(f[i][j]) << ' ';
-			std::cout << f[i][j] << ' ';
+			std::cout << int(f[i][j]) << ' ';
+			//~ std::cout << f[i][j] << ' ';
 		}
 		
 		std::cout << '\n';

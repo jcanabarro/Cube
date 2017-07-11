@@ -10,6 +10,13 @@ typedef std::pair<int,int> ii;
 #define COST first.first
 #define LAYER first.second
 
+//~ #define DEBUG
+#ifdef DEBUG
+#define PRINT(a) (std::cout << "DEFINE_TEST " << a << std::endl)
+#else
+#define PRINT(a)
+#endif
+
 template<std::size_t D>
 int _heuristic(std::array<std::array<char,D>,D> f, int color)
 {
@@ -106,27 +113,23 @@ int _layer(std::array<std::array<char,D>,D> f, int color, int layer)
 	return cost;
 }
 
-/*
-layer to be solved 
-where layer = 0 
-		-> solve bottom + first layer from right/left/front/back
-where layer = 1
-		-> solve the second layer from right/left/front/back
-where layer = 2
-		-> solve the third layer from right/left/front/back
-where layer = 3
-		->solve the top
-*/
-
 template<std::size_t D> 
 int layer(Rubik<D> cube, int layer_)
-{
-	return _layer<D>(cube.front, WHITE, layer_)
-	     + _layer<D>(cube.back, YELLOW, layer_)
-	     + _layer<D>(cube.right, BLUE, layer_)
-	     + _layer<D>(cube.left, GREEN, layer_)
-	     + _layer<D>(cube.bottom, RED, D - 1)
-	     + (layer_ == D - 1) ? _layer<D>(cube.top, ORANGE, layer_) : 0;
+{	
+	//~ int aux = _layer<D>(cube.front, WHITE, layer_) + _layer<D>(cube.back, YELLOW, layer_) + _layer<D>(cube.right, BLUE, layer_) + _layer<D>(cube.left, GREEN, layer_) + _layer<D>(cube.bottom, RED, D - 1) + (layer_ == D - 1) ? _layer<D>(cube.top, ORANGE, layer_) : 0;
+	int auxfront = _layer<D>(cube.front, WHITE, layer_) ;
+	int auxback = _layer<D>(cube.back, YELLOW, layer_) ;
+	int auxrig =  _layer<D>(cube.right, BLUE, layer_); 
+	int auxleft = _layer<D>(cube.left, GREEN, layer_); 
+	int auxbot =  _layer<D>(cube.bottom, RED, D - 1);
+	int auxtop = _layer<D>(cube.top, ORANGE, layer_) + (layer_ == D - 1) ? _layer<D>(cube.top, ORANGE, layer_) : 0;
+	int aux2 = auxfront + auxback + auxrig + auxleft + auxbot + auxtop;
+	
+	if (aux2 == 0){ 
+			cube.print();
+	}
+	return aux2;
+
 }
 
 template<std::size_t D>
@@ -143,8 +146,6 @@ bool lastar(Rubik<D> cube)
 	
 	int layer_ = 0;
 	int state = 0;
-
-	std::cout << "HELLO LA*" << std::endl; 
 
 	while(!next.empty())
 	{
@@ -180,6 +181,11 @@ bool lastar(Rubik<D> cube)
 					if(u.LAYER < layer_)
 					{
 						std::cout << "STATE=" << state << std::endl;
+						
+						if(layer_ == 1){
+							std::cout << "Termino Primeira camada" << std::endl;
+							return true;
+						}
 					}
 					
 				}
@@ -195,8 +201,10 @@ bool lastar(Rubik<D> cube)
 
 int main()
 {	
-	Shuffle<2> shuffle;
-	Rubik<2> cube = shuffle.random(3); // 3x3 Com quinze ainda não dá com 15
-	// astar<2>(cube);
-	lastar<2>(cube);
+	PRINT(4);
+	Shuffle<3> shuffle;
+	Rubik<3> cube = shuffle.random(5); // 3x3 Com quinze ainda não dá com 15
+	astar<3>(cube);
+	cube.print();
+	lastar<3>(cube);
 }

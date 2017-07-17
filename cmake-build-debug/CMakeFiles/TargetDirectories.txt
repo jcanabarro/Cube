@@ -1,3 +1,0 @@
-/home/jcanabarro/Documents/IA/Cube/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/jcanabarro/Documents/IA/Cube/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/jcanabarro/Documents/IA/Cube/cmake-build-debug/CMakeFiles/Cube.dir

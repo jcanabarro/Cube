@@ -17,10 +17,11 @@ Bibliotecas adicionais: https://github.com/nlohmann/json <br>			http://www.cos.u
 # Descrição: #
 Trabalho referente a diciplica de Inteligência artifícial objetiva testar diferentes tipos de algoritmos de busca e desempenho, para validação dos testes será desenvolvido o algoritmo de resolução do cubo mágico 3x3x3.
 
-	Os algorítmos terão resoluções através de:
-		1. Dois algorítmos de busca cega.
-		2. Um algorítmo heurístico clássico.
-		3. Um algorítmo heurístico desenvolvido pela equipe.
+	Os algorítmos de resoluções são:
+		1. Algoritmo de busca em largura.
+		2. Algoritmo de busca em profundidade limitada.
+		2. Algoritmo heurístico A*.
+		3. Algoritmo heurístico LA*(layer A*).
   
 # Estrutura do código: #
 

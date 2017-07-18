@@ -7,7 +7,7 @@
 </p>
  	                                              
 ## Autores: ##
-    João Victor Canabarro e Renan Tashiro
+    João Victor Canabarro e Renan Tashiro.
 
 # Específicação #
 

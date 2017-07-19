@@ -1,4 +1,3 @@
-#include "blindsearch.cpp"
 #include <functional>
 #include <queue>
 #include <utility>
@@ -41,9 +40,8 @@ int heuristic(Rubik<D> cube)
 }
 
 template<std::size_t D>
-bool astar(Rubik<D> cube)
+bool astar(Rubik<D> cube, int max_state)
 {
-	
 	if(cube.solved()) return true;
 	
 	Shuffle<D> move;
@@ -60,7 +58,14 @@ bool astar(Rubik<D> cube)
 		std::pair<int,Rubik<D>> u = next.top();
 		next.pop();
 				
-		state++;		
+		state++;
+		
+		
+		if(state > max_state)
+		{
+			std::cout << "A*_N_STATES=" << state << " NOT_FOUND=MEMORY" << std::endl;		
+			return false;
+		}
 		
 		for(std::size_t i = 0; i < 6 * D; i++)
 		{
@@ -69,8 +74,7 @@ bool astar(Rubik<D> cube)
 			v.move(move.get_mx()[i], move.get_my()[i], move.get_mz()[i], move.get_mcw()[i]);
 			
 			if(v.solved())  {
-				std::cout << "A*=" << state << std::endl;
-				//~ v.print();
+				std::cout << "FOUND A*_N_STATES=" << state << std::endl;
 				return true;
 			}
 			
@@ -78,8 +82,6 @@ bool astar(Rubik<D> cube)
 			{
 				next.push({1 + u.first + heuristic<D>(v), Rubik<D>(v)});
 				visited.insert(Rubik<D>(v));
-				
-
 			}
 		}
 	}
@@ -122,7 +124,7 @@ int layer(Rubik<D> cube, int layer_)
 }
 
 template<std::size_t D>
-bool lastar(Rubik<D> cube)
+bool lastar(Rubik<D> cube, int max_states)
 {
 	if(cube.solved()) return true;
 	
@@ -145,6 +147,12 @@ bool lastar(Rubik<D> cube)
 				
 		state++;		
 		
+		if(state > max_states)
+		{
+			std::cout << "LA*_N_STATES=" << state << " NOT_FOUND=MEMORY" << std::endl;
+			return false;
+		}
+		
 		for(std::size_t i = 0; i < 6 * D; i++)
 		{
 			Rubik<D> v(u.second);
@@ -158,7 +166,7 @@ bool lastar(Rubik<D> cube)
 				if(hcost == 0)
 				{
 					if(layer_ < u.LAYER + 1)
-						std::cout << "STATE=" << state << " LAYER=" << u.LAYER+1 << std::endl; 
+						std::cout << "LA*_STATE=" << state << " LA*_LAYER=" << u.LAYER+1 << std::endl; 
 						
 					layer_ = std::max(layer_, u.LAYER + 1);
 				}
@@ -168,20 +176,11 @@ bool lastar(Rubik<D> cube)
 			}
 			
 			if(v.solved())  {
-				std::cout << "LA*=" << state << std::endl;
-				//~ v.print();
+				std::cout << "FOUND LA*_N_STATES=" << state << std::endl;
 				return true;
 			}
 		}
 	}
 	
 	return false;
-}
-
-int main()
-{	
-	Shuffle<2> shuffle;
-	Rubik<2> cube = shuffle.random(12); // 3x3 Com quinze ainda não dá com 15
-	lastar<2>(cube);
-	astar<2>(cube);
 }

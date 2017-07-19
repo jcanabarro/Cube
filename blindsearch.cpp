@@ -2,15 +2,18 @@
 #include <queue>
 #include <set>
 
-int states = 0;
-
 template<std::size_t D>
-bool limited_dfs(Rubik<D> cube, std::set<Rubik<D>> &visited, int deep, int max_deep)
+bool _limited_dfs(Rubik<D> cube, std::set<Rubik<D>> &visited, int deep, int max_deep, int &n_states, int max_states)
 {
+	n_states++;
+	
 	if(deep > max_deep) return false;
 	if(cube.solved()) return true;
+	if(n_states > max_states) {
+		std::cout << "LIMITED_DFS=MEMORY_FAIL ";
+		return false;
+	}
 	
-	states++;
 	visited.insert(Rubik<D>(cube));
 	
 	Shuffle<D> move;
@@ -24,7 +27,7 @@ bool limited_dfs(Rubik<D> cube, std::set<Rubik<D>> &visited, int deep, int max_d
 		
 		if(visited.find(v) == visited.end())
 		{
-			possible = std::max(possible, limited_dfs(v, visited, deep + 1, max_deep));
+			possible = std::max(possible, _limited_dfs<D>(v, visited, deep + 1, max_deep, n_states, max_states));
 		}
 	}
 	
@@ -32,8 +35,23 @@ bool limited_dfs(Rubik<D> cube, std::set<Rubik<D>> &visited, int deep, int max_d
 }
 
 template<std::size_t D>
-bool bfs(Rubik<D> cube)
+bool limited_dfs(Rubik<D> cube, int max_deep, int max_states)
 {
+	std::set<Rubik<D>> visited;
+	int n_states = 0;
+	bool ans = _limited_dfs<D>(cube, visited, 0, max_deep, n_states, max_states);
+	
+	std::cout << "DFS_LIMITED_N_STATES=" << n_states << " FOUND_SOLUTION=" << ans << std::endl;
+	
+	return ans;
+}
+
+template<std::size_t D>
+bool bfs(Rubik<D> cube, int max_states)
+{
+	if(cube.solved())
+		return true;
+	
 	Shuffle<D> move;
 	std::queue<Rubik<D>> next;
 	std::set<Rubik<D>> visited;
@@ -48,13 +66,13 @@ bool bfs(Rubik<D> cube)
 		Rubik<D> u = next.front();
 		next.pop();
 		
-		if(u.solved())
-		{
-			std::cout << state << std::endl;
-			return true;
-		}
-		
 		state++;		
+		
+		if(state > max_states) 
+		{
+			std::cout << "BFS_N_STATES=" << state << " NOT_FOUND_SOLUTION=MEMORY" << std::endl;
+			return false;
+		}
 		
 		for(std::size_t i = 0; i < 6 * D; i++)
 		{
@@ -63,7 +81,7 @@ bool bfs(Rubik<D> cube)
 			v.move(move.get_mx()[i], move.get_my()[i], move.get_mz()[i], move.get_mcw()[i]);
 			
 			if(v.solved())  {
-				std::cout << state << std::endl;
+				std::cout << "BFS_N_STATES=" << state << std::endl;
 				return true;
 			}
 			
@@ -77,15 +95,3 @@ bool bfs(Rubik<D> cube)
 	
 	return false;
 }
-
-//~ int main()
-//~ {
-	//~ Shuffle<3> shuffle;
-	
-	//~ Rubik<3> cube = shuffle.random(5);
-	
-	//~ bfs<3>(cube);
-	//~ std::set<Rubik<3>> visited;
-	//~ std::cout << limited_dfs<3>(cube, visited, 0, 10) << std::endl;
-	//~ std::cout << states << std::endl;
-//~ }

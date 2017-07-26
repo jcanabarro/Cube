@@ -40,13 +40,13 @@ void execute_lastar(Rubik<D> cube, int max_state)
 
 int main()
 {		
-	for(int moves = 2; moves <= 5; moves++)
+	for(int moves = 2; moves <= 10; moves++)
 	{
 		std::cout << "\n\n\n______________N_MOVES=" << moves << std::endl; 
 		
 		Shuffle<2> shuffle;
 		
-		for(int test_n = 0; test_n < 5; test_n++)
+		for(int test_n = 0; test_n < 3; test_n++)
 		{
 			sleep(0.100); // mudar a seed randomica
 			Rubik<2> cube = shuffle.random(moves);
